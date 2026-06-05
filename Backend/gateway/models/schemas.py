@@ -8,3 +8,20 @@ class SignupSchema(BaseModel):
 class SigninSchema(BaseModel):
     username: str
     password: str
+
+class UsersSchema(BaseModel):
+    fullname: str
+    phone: str
+    email: str
+    password: str
+    role: int
+    status:int    
+
+class TasksSchema(BaseModel):
+    title: str
+    description: str
+    created_by: int
+    assignedto: int
+    priority: int
+    deadline: str
+    status: int    

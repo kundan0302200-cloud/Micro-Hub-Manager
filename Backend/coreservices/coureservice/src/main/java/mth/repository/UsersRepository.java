@@ -30,4 +30,5 @@ public interface UsersRepository extends JpaRepository<Users, Long>{
 	public Object profileByEmail(@Param("email") String email);
 	
 	
+	
 }

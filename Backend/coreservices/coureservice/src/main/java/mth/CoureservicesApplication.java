@@ -3,7 +3,7 @@ package mth;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "mth")
 public class CoureservicesApplication {
 
 	public static void main(String[] args) {

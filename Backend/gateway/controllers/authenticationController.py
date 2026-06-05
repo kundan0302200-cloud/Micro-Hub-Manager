@@ -25,12 +25,13 @@
 #     return response.json()
 
 from fastapi import APIRouter, Header
-from models.schemas import SigninSchema, SignupSchema
+from models.schemas import SigninSchema, SignupSchema, UsersSchema
 import httpx
 
 router = APIRouter(prefix="/authservice")
 
 SPRING_URL = "http://localhost:8001/"  # Spring Boot URL
+
 
 
 @router.post("/signup")
@@ -75,6 +76,43 @@ async def profile(PAGE: int, SIZE: int, Token: str = Header(...)):
     async with httpx.AsyncClient() as client:
         response = await client.get(
             f"{SPRING_URL}user/getallusers/{PAGE}/{SIZE}",
+            headers = {"Token": Token}
+        )
+    return response.json()
+@router.post("/saveuser")
+async def saveuser(U: UsersSchema, Token:str = Header(...)):
+    async with httpx.AsyncClient() as client:
+        response = await client.post(
+            f"{SPRING_URL}user/saveuser",
+            json=U.model_dump(),
+            headers={"Token": Token}
+        )
+    return response.json()
+
+@router.put("/updateuser/{ID}")
+async def updateuser(ID: int, U: UsersSchema, Token: str = Header(...)):
+    async with httpx.AsyncClient() as client:
+        response = await client.put(
+            f"{SPRING_URL}user/updateuser/{ID}",
+            json=U.model_dump(),
+            headers={"Token": Token}
+        )
+    return response.json()
+    
+@router.delete("/deleteuser/{ID}")
+async def deleteuser(ID: int, Token: str = Header(...)):
+    async with httpx.AsyncClient() as client:
+        response = await client.delete(
+            f"{SPRING_URL}user/deleteuser/{ID}",
+            headers={"Token": Token}
+        )
+    return response.json()
+
+@router.get("/getuser/{ID}")
+async def profile(ID: int, Token: str = Header(...)):
+    async with httpx.AsyncClient() as client:
+        response = await client.get(
+            f"{SPRING_URL}user/getuser/{ID}",
             headers = {"Token": Token}
         )
     return response.json()

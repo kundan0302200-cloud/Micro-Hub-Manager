@@ -20,7 +20,7 @@ class UsersSchema(BaseModel):
 class TasksSchema(BaseModel):
     title: str
     description: str
-    created_by: int
+    createdby: int = 0
     assignedto: int
     priority: int
     deadline: str

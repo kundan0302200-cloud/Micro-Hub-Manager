@@ -144,6 +144,14 @@ const TaskManager = ({logout}) => {
         return Object.keys(errors).length > 0;
     }
 
+    function getResponseMessage(res, fallback){
+        if(!res) return fallback;
+        if(res.message) return res.message;
+        if(Array.isArray(res.detail)) return res.detail.map(item => item.msg).join("\n");
+        if(res.detail) return res.detail;
+        return fallback;
+    }
+
     function saveTask(){
         if(validateData())
             return;
@@ -151,12 +159,16 @@ const TaskManager = ({logout}) => {
         setIsProgress(true);
         if(taskData?.id === "")
             callApi("POST", apibaseurl + "/taskservice/createtask", taskData, null, saveTaskHandler, token);
-        else
+        else if(taskData?._id)
             callApi("PUT", apibaseurl + "/taskservice/updatetask/" + taskData?._id, taskData, null, saveTaskHandler, token);
+        else{
+            alert("Unable to update task: task id is missing");
+            setIsProgress(false);
+        }
     }
 
     function saveTaskHandler(res){
-        alert(res.message);
+        alert(getResponseMessage(res, "Unable to save task"));
         setIsProgress(false);
         if(res.code !== 200)      
             return;

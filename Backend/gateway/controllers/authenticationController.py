@@ -116,3 +116,12 @@ async def profile(ID: int, Token: str = Header(...)):
             headers = {"Token": Token}
         )
     return response.json()
+
+@router.get("/searchuser/{KEY}")
+async def searchuser(KEY: str, Token: str = Header(...)):
+    async with httpx.AsyncClient() as client:
+        response = await client.get(
+            f"{SPRING_URL}user/searchuser/{KEY}",
+            headers={"Token": Token}
+        )
+    return response.json()

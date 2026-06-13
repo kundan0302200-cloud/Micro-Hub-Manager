@@ -16,8 +16,19 @@ router.delete("/deletetask/:ID", async(req, res) => {
     const response = await taskServices.deleteTask(ID, req.headers["token"]);
     res.json(response);
 });
+router.get("/gettask/:ID", async(req, res) => {
+    const { ID } = req.params;
+    const response = await taskServices.getTask(ID, req.headers["token"]);
+    res.json(response);
+});
 router.put("/updatetask/:ID", async(req, res) => {
     const { ID } = req.params;
     const response = await taskServices.updateTask(ID, req.body, req.headers["token"]);
     res.json(response);
 });
+
+router.get("/vectorsearch/:QUERY", async(req, res) => {
+    const { QUERY } = req.params;
+    const response = await taskServices.vectorSearch(QUERY, req.headers["token"]);
+    res.json(response);
+})

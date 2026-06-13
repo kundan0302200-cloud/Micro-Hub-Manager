@@ -44,14 +44,14 @@ public class UsersController {
 	@GetMapping("/getallusers/{PAGE}/{SIZE}")
 	public Object getAllUsers( @PathVariable("PAGE") int page, @PathVariable("SIZE") int size, @RequestHeader("Token")String token) {
 		return US.getAllUsers(page, size, token);
-		}
+	}
 	@PostMapping("/saveuser")
-	 public Object saveUser(@RequestBody Users U,@RequestHeader String Token)
+	 public Object saveUser(@RequestBody Users U,@RequestHeader("Token") String Token)
 	 {
 		 return US.saveUser(U, Token);
 	 }
 	@PutMapping("/updateuser/{ID}")
-	public Object updateUser(@PathVariable("ID") Long id, @RequestBody Users U, @RequestHeader String Token)
+	public Object updateUser(@PathVariable("ID") Long id, @RequestBody Users U, @RequestHeader("Token") String Token)
 	{
 		return US.updateUser(id, U, Token);
 	}
@@ -61,13 +61,13 @@ public class UsersController {
 	    return US.deleteuser(id, token);
 	}
 	 @GetMapping("/getuser/{ID}")
-	  public Object getUser(@PathVariable("ID") Long id, @RequestHeader String Token)
+	  public Object getUser(@PathVariable("ID") Long id, @RequestHeader("Token") String Token)
 	  {
 	    return US.getUserById(id, Token);
 	  }
 	 
 	 @GetMapping("/searchuser/{KEY}")
-	 public Object searchUser(@PathVariable("KEY") String key, @RequestHeader String token) {
+	 public Object searchUser(@PathVariable("KEY") String key, @RequestHeader("Token") String token) {
 		 return US.searchUser(key, token);
 	 }
 }

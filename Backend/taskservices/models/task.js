@@ -6,7 +6,8 @@ const taskSchema = new mongoose.Schema({
     assignedto: { type: Number, required: true },
     priority: { type: Number, required: true },
     deadline: { type: String, required: true },
-    status: { type: Number, required: true }
+    status: { type: Number, required: true },
+    vector: { type: [Number] }
 }, {
     timestamps: { createdAt: 'createdat', updatedAt: 'updatedat' }
 })

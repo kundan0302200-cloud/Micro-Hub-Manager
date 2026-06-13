@@ -1,11 +1,13 @@
 package mth.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.IdClass;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "rolemapping")
+@IdClass(RolemappingId.class)
 public class Rolemapping {
 	@Id
 	Long role;

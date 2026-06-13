@@ -223,6 +223,7 @@ public class UsersService {
 	    Map<String, Object> response = new HashMap<>();
 	    try
 	    {
+	      JWT.validateJWT(token);
 	      List<Object> users = UR.searchUser(key);
 	      response.put("code", 200);
 	      response.put("users", users);

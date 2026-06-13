@@ -33,6 +33,15 @@ async def deleteTask(ID: str, Token: str = Header(...)):
         )
     return response.json()
 
+@router.get("/gettask/{ID}")
+async def getTask(ID: str, Token: str = Header(...)):
+    async with httpx.AsyncClient() as client:
+        response = await client.get(
+            SPRING_URL + f"task/gettask/{ID}",
+            headers = {"Token": Token}
+        )
+    return response.json()
+
 @router.put("/updatetask/{ID}")
 async def updateTask(ID: str, T: TasksSchema, Token: str = Header(...)):
     async with httpx.AsyncClient() as client:
@@ -40,5 +49,14 @@ async def updateTask(ID: str, T: TasksSchema, Token: str = Header(...)):
             SPRING_URL + f"task/updatetask/{ID}",
             json=T.model_dump(),
             headers = {"Token": Token}
+        )
+    return response.json()
+
+@router.get("/vectorsearch/{QUERY}")
+async def vectorsearch(QUERY: str, Token: str = Header(...)):
+    async with httpx.AsyncClient() as client:
+        response = await client.get(
+            SPRING_URL + f"task/vectorsearch/{QUERY}",
+            headers={"Token": Token}
         )
     return response.json()
